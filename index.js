@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { upload, processExcelFile } = require("./file-upload");
+const { upload, processExcelFile } = require("./Controllers/file-upload");
 const bodyparser = require("body-parser");
 const authRoutes = require("./Routes/auth.routes");
 const filesRoutes = require("./Routes/files.routes");
+const userRoutes = require("./Routes/user.routes");
+const folderRoutes = require("./Routes/folders.routes")
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +21,9 @@ app.get("/", (req, res) => {
 //routes
 app.use("/auth", authRoutes);
 app.use("/files", filesRoutes);
+app.use("/users", userRoutes);
+app.use("/folders", folderRoutes);
+app.use("/share", require("./Routes/share.routes"));
 
 // app.post("/upload", upload.single("file"), (req, res) => {
 //   console.log(req.file);
