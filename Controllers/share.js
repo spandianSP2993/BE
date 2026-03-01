@@ -1,5 +1,4 @@
 const pool = require("../db");
-const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcryptjs");
 const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const s3Config = require("../s3Config");
@@ -7,6 +6,8 @@ const s3Config = require("../s3Config");
 // Generate a Share Link
 const generateLink = async (req, res) => {
     try {
+        const { v4: uuidv4 } = await import("uuid");
+        
         if (!req.user || !req.user.id) {
             return res.status(401).json({ error: "Unauthorized" });
         }
